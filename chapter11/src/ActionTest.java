@@ -7,7 +7,7 @@ import java.security.PrivilegedAction;
  * @version 1.33 2019
  * @author ww
  */
-/**public class ActionTest {
+public class ActionTest {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             JFrame frame = new ButtonFrame();
@@ -17,11 +17,10 @@ import java.security.PrivilegedAction;
         });
     }
 }
-*/
 /**
  * A frame with a button panel
  */
-public class ButtonFrame extends JFrame {
+class ButtonFrame extends JFrame {
     private JPanel buttonPanel;
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 200;
