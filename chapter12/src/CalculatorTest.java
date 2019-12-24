@@ -4,7 +4,7 @@ import java.awt.*;
 public class CalculatorTest {
     public static void main(String[] args) {
         EventQueue.invokeLater(()-> {
-            JFrame frame = new MenuFrame();
+            JFrame frame = new ToolBarFrame();
             frame.setTitle("Calculate-test");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
