@@ -1,13 +1,12 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 
 /**
- * Shows an animated bouncing ball.
+ * Shows animated bouncing balls.
  * @version 1.34
- * @author wzw
  */
-public class Bounce {
+public class BounceThread {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             JFrame frame = new BounceFrame();
@@ -16,23 +15,20 @@ public class Bounce {
         });
     }
 }
-
 /**
- * The frame wih ball component and buttons.
+ * The frame wih panel and buttons.
  */
-
 class BounceFrame extends JFrame {
     private BallComponent comp;
     public static final int STEPS = 1000;
-    public static final int DELAY = 3;
+    public static final int DELAY = 5;
 
     /**
      * Constructs the frame with the component for showing the bouncing ball and Start and Close buttons
      */
     public BounceFrame() {
-        setTitle("Bounce");
         comp = new BallComponent();
-        add(comp,BorderLayout.CENTER);
+        add(comp, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
         addButton(buttonPanel,"Start",event -> addBall());
         addButton(buttonPanel,"Close",event -> System.exit(0));
@@ -56,16 +52,19 @@ class BounceFrame extends JFrame {
      * Adds a bouncing ball to the panel and makes it bounce 1,000 times.
      */
     public void addBall() {
-        try {
-            Ball ball = new Ball();
-            comp.add(ball);
-
-            for (int i = 1; i <= STEPS; i++) {
-                ball.move(comp.getBounds());
-                comp.paint(comp.getGraphics());
-                Thread.sleep((DELAY));
+        Ball ball = new Ball();
+        comp.add(ball);
+        Runnable r = () -> {
+            try {
+                for (int i = 1; i <= STEPS; i++) {
+                    ball.move(comp.getBounds());
+                    comp.repaint();
+                    Thread.sleep(DELAY);
+                }
             }
-        }
-        catch (InterruptedException e) {}
+            catch (InterruptedException e) {}
+        };
+        Thread t = new Thread(r);
+        t.start();
     }
 }
